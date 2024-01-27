@@ -1,0 +1,26 @@
+name: Deploy to gist
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+        - name: Set up Python 3.9
+          uses: actions/setup-python@v5
+          with:
+            python-version: 3.9
+
+        - name: Install packages
+          run: pip install -r requirements.txt
+
+        - name: Fetch data
+          run: python main.py
+
+        - name: Deploy
+          uses: exuanbo/actions-deploy-gist@v1
+          with:
+            token: ${{ secrets.TOKEN }}
+            gist_id: 0067d88dfd982c272e20dcb496f4dbc7
+            file_path: champions.json
