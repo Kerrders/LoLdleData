@@ -10,7 +10,7 @@ Feel free to use it.
 
 ## How to Use
 
-1. Utilize the [champions.json](https://gist.github.com/Kerrders/0067d88dfd982c272e20dcb496f4dbc7) file for enriched champion data.
+1. Use the [champions.json](https://gist.github.com/Kerrders/0067d88dfd982c272e20dcb496f4dbc7) file for extra champion data.
 2. Integrate the data into your application or project as needed.
 
 ## Contributing
