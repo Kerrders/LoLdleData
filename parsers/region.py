@@ -33,7 +33,6 @@ class Region:
     def setRegion(self, championName, faction):
         for champion in self.champions:
             if championName == champion.get("name"):
-                print("test1")
                 if champion.get("region"):
                     champion["region"] += "," + faction
                 else:

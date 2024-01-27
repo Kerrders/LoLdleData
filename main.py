@@ -7,7 +7,7 @@ champions = Champions("14.2.1").parse()
 champions = ReleaseDate(champions).parse()
 champions = Region(champions).parse()
 
-output_file_path = "champion_data.json"
+output_file_path = "champions.json"
 with open(output_file_path, "w") as json_file:
     json.dump(champions, json_file, sort_keys=False, indent=4)
 
