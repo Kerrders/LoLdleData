@@ -22,10 +22,15 @@ class Champions:
                 "skinCount": len(champions[champ].get("skins")),
                 "image": champions[champ].get("image"),
                 "gender": self.getGender(champions[champ].get("id")),
+                "attackType": self.getAttackType(champions[champ]),
             })
             print('Data fetched for ' + champ)
 
         return mappedData
+
+    def getAttackType(self, champion):
+        attackRange = champion.get("stats").get("attackrange")
+        return "close" if attackRange < 500 else "range"
 
     def getGender(self, championId):
         if championId == "Renata":
