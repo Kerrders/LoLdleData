@@ -25,6 +25,7 @@ class Champions:
                 "attackType": self.getAttackType(champions[champ]),
             })
             print('Data fetched for ' + champ)
+            break
 
         return mappedData
 
