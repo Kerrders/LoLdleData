@@ -24,7 +24,7 @@ class Champions:
                 "gender": self.getGender(champions[champ].get("id")),
                 "attackType": self.getAttackType(champions[champ]),
             })
-            print('Data fetched for ' + champ)
+            print(f"Data fetched for {champ}", flush=True)
 
         return mappedData
 

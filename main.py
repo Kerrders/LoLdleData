@@ -15,7 +15,7 @@ def main():
     output_file_path = "champions.json"
     save_data_to_json(output_file_path, champions_data)
 
-    print(f"Champion data has been saved to {output_file_path}")
+    print(f"Champion data has been saved to {output_file_path}", flush=True)
 
 def save_data_to_json(file_path, data):
     with open(file_path, "w") as json_file:
