@@ -13,8 +13,12 @@ class Region:
 
     def parse(self):
         for faction in self.regions:
-            data = requests.get(f"https://universe-meeps.leagueoflegends.com/v1/en_sg/factions/{faction}/index.json")
-            data = data.json()
+            try:
+                data = requests.get(f"https://universe-meeps.leagueoflegends.com/v1/en_us/factions/{faction}/index.json")
+                data = data.json()
+            except:
+                print(f"Can't load data for faction {faction}")
+                continue
 
             region_champions = []
             for x in data.get("associated-champions"):
