@@ -3,10 +3,9 @@ from parsers.champions import Champions
 from parsers.lane import Lane
 from parsers.region import Region
 from parsers.releaseDate import ReleaseDate
+from config import champions_version
 
 def main():
-    champions_version = "14.22.1"
-    
     champions_data = Champions(champions_version).parse()
     champions_data = ReleaseDate(champions_data).parse()
     champions_data = Region(champions_data).parse()
