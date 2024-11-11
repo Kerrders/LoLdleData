@@ -5,7 +5,7 @@ from parsers.region import Region
 from parsers.releaseDate import ReleaseDate
 
 def main():
-    champions_version = "14.11.1"
+    champions_version = "14.22.1"
     
     champions_data = Champions(champions_version).parse()
     champions_data = ReleaseDate(champions_data).parse()
