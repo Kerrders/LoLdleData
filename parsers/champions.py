@@ -1,4 +1,5 @@
 import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 class Champions:
     version = ""
@@ -8,9 +9,19 @@ class Champions:
 
     def parse(self):
         data = requests.get(f"https://ddragon.leagueoflegends.com/cdn/{self.version}/data/en_US/championFull.json")
-        return self.mapData(data.json()["data"])
-        
-    def mapData(self, champions):
+        champions = data.json()["data"]
+
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            futures = {executor.submit(self.getGender, champ_id): champ_id for champ_id in champions}
+
+            gender_map = {}
+            for future in as_completed(futures):
+                champ_id = futures[future]
+                gender_map[champ_id] = future.result()
+
+        return self.mapData(champions, gender_map)
+
+    def mapData(self, champions, gender_map):
         mappedData = []
         for champ in champions:
             mappedData.append({
@@ -21,7 +32,7 @@ class Champions:
                 "genre": ",".join(champions[champ].get("tags")),
                 "skinCount": len(champions[champ].get("skins")),
                 "image": champions[champ].get("image"),
-                "gender": self.getGender(champions[champ].get("id")),
+                "gender": gender_map.get(champ, "divers"),
                 "attackType": self.getAttackType(champions[champ]),
             })
             print(f"Data fetched for {champ}", flush=True)
@@ -36,7 +47,7 @@ class Champions:
         if championId == "Renata":
             championId = "renataglasc"
         try:
-            lore = requests.get(f"https://universe-meeps.leagueoflegends.com/v1/en_us/champions/{championId.lower()}/index.json").json()
+            lore = requests.get(f"https://universe-meeps.leagueoflegends.com/v1/en_us/champions/{championId.lower()}/index.json", timeout=5).json()
             bio = lore.get("champion", {}).get("biography", {}).get("full", "").lower().split(" ")
 
             male_keywords = {"he", "him", "his"}
@@ -53,4 +64,3 @@ class Champions:
                 return "divers"
         except:
             return "divers"
-    

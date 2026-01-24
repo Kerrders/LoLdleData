@@ -14,8 +14,8 @@ class ReleaseDate:
         for row in table.findAll("tr"):
             columns = row.findAll("td")
             if columns:
-                champion = columns[0].find("a")["title"].replace("/LoL", "")
-                year = columns[2].text.strip()[0:4]
+                champion = columns[1].find("a")["title"].replace("/LoL", "")
+                year = columns[3].text.strip().split('-')[-1]
                 self.setReleaseDate(champion, year)
         return self.champions
     
